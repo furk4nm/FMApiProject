@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FMData.Entity {
-	public class User {
+	public class User:BaseEntity {
 		public string Email { get; set; }
 		public string Password { get; set; }
 	}

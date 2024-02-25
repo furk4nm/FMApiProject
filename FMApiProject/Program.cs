@@ -1,3 +1,9 @@
+using FMData.Context;
+using FMRepository.Abstract;
+using FMRepository.Concrete.User;
+using FMServices.UserService;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,7 +22,13 @@ builder.Services.AddCors(options => {
 			   .AllowAnyHeader();
 	});
 });
-
+builder.Services.AddDbContext<FmContext>(options => {
+	options.UseSqlServer(builder.Configuration.GetConnectionString(name: "DefaultConnectionString"));
+});
+//Dependency.Injection
+builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IUserService,UserService>();
 
 var app = builder.Build();
 

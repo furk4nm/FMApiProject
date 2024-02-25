@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace FMData.Context {
 	public class FmContext:DbContext {
+		public FmContext(DbContextOptions<FmContext>options) :base(options) {
+
+		}
+
 		public DbSet<User> Users { get; set; }
 
 		//override protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
