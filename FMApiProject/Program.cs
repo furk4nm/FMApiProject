@@ -1,3 +1,4 @@
+using AutoMapper;
 using FMData.Context;
 using FMRepository.Abstract;
 using FMRepository.Concrete.User;
@@ -29,7 +30,12 @@ builder.Services.AddDbContext<FmContext>(options => {
 builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();
-
+//AutoMapperConfig
+var mapperConfig = new MapperConfiguration(mc => {
+	mc.AddProfile(new FMServices.Mappers.MappingProfile());
+});
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

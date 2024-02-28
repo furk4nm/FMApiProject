@@ -1,7 +1,7 @@
-﻿using FMData.Entity;
-using FMRepository.Concrete.User;
+﻿using AutoMapper;
+using FMData.Entity;
+using FMServices.Models;
 using FMServices.UserService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FMApiProject.Controllers {
@@ -10,9 +10,11 @@ namespace FMApiProject.Controllers {
 	public class UserController : ControllerBase {
 		//private readonly IUserRepository _userRepository;
 		private readonly IUserService _userService;
+		private readonly IMapper _mapper;
 
-		public UserController(IUserService userService) {
+		public UserController(IUserService userService,IMapper mapper) {
 			_userService = userService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
@@ -24,7 +26,8 @@ namespace FMApiProject.Controllers {
 			return await _userService.GetByIdAsync(id);
 		}
 		[HttpPost]
-		public async Task<User> Post([FromBody] User user) {
+		public async Task<User> Post([FromBody] UserRequestModel UserRequestModel) {
+			var user = _mapper.Map<User>(UserRequestModel);
 			return await _userService.InsertAsync(user);
 		}
 		[HttpPut]

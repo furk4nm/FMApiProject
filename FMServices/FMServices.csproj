@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ClassLibrary1\FMData.csproj" />
     <ProjectReference Include="..\FMRepository\FMRepository.csproj" />
   </ItemGroup>
